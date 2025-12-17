@@ -1,0 +1,55 @@
+package com.knowledge.myfinapp.data.sync
+
+import android.content.Context
+import com.knowledge.myfinapp.core.util.isNetworkAvailable
+import com.knowledge.myfinapp.domain.model.Expense
+import com.knowledge.myfinapp.domain.repository.ExpenseRepository
+import com.knowledge.myfinapp.domain.repository.ExpenseSyncRepository
+import java.time.Instant
+import java.time.Instant.now
+
+class SyncManager(
+    private val context: Context,
+    private val syncRepository: ExpenseSyncRepository,  // para operações de Room
+    private val repository: ExpenseRepository,          // para lógica de domínio se precisar
+    private val syncStore: SyncStore
+) {
+    suspend fun syncExpenses(): Unit {
+        if (!context.isNetworkAvailable()) return
+
+        val unsyncedExpenses = syncRepository.getUnsynced()
+
+        if (pushUpdates(unsyncedExpenses)) {
+            syncRepository.markAsSynced(
+                unsyncedExpenses.map { it.id }
+            )
+        }
+
+        val lastSync: Instant? = syncStore.lastSyncTime()
+        val remoteUpdates = fetchRemoteUpdates(lastSync)
+
+        merge(remoteUpdates)
+
+        syncStore.updateLastSync(now())
+    }
+
+    suspend fun fetchRemoteUpdates(lastSync: Instant?): List<Expense> {
+        return repository.fetchRemoteExpenses(updatedAfter = lastSync)
+    }
+    suspend fun pushUpdates(expenses: List<Expense>): Boolean {
+        if (expenses.isEmpty()) return false
+
+        return repository.pushExpenses(expenses)
+    }
+
+    suspend fun merge(remote: List<Expense>) {
+        val toUpsert = remote.filter { remoteExpense ->
+            val local = repository.getById(remoteExpense.id)
+            local == null || remoteExpense.updatedAt > local.updatedAt
+        }
+
+        if (toUpsert.isNotEmpty()) {
+            syncRepository.upsert(toUpsert)
+        }
+    }
+}
