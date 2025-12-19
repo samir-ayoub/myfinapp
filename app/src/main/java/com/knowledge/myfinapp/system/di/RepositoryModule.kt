@@ -1,9 +1,9 @@
 package com.knowledge.myfinapp.system.di
 
 import com.knowledge.myfinapp.data.repository.ExpenseRepositoryImpl
-import com.knowledge.myfinapp.data.repository.ExpenseLocalRepositoryImpl
+import com.knowledge.myfinapp.data.repository.RoomExpenseRepositoryImpl
 import com.knowledge.myfinapp.domain.repository.ExpenseRepository
-import com.knowledge.myfinapp.domain.repository.ExpenseLocalRepository
+import com.knowledge.myfinapp.domain.repository.RoomExpenseRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -23,6 +23,6 @@ abstract class RepositoryModule {
     @Binds
     @Singleton
     abstract fun bindExpenseSyncRepository(
-        impl: ExpenseLocalRepositoryImpl
-    ): ExpenseLocalRepository
+        impl: RoomExpenseRepositoryImpl
+    ): RoomExpenseRepository
 }

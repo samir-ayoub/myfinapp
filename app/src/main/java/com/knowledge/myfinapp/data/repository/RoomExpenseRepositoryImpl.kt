@@ -5,7 +5,7 @@ import com.knowledge.myfinapp.data.mappers.local.toDomain
 import com.knowledge.myfinapp.data.mappers.local.toEntity
 import com.knowledge.myfinapp.data.mappers.relation.toDomain
 import com.knowledge.myfinapp.domain.model.Expense
-import com.knowledge.myfinapp.domain.repository.ExpenseLocalRepository
+import com.knowledge.myfinapp.domain.repository.RoomExpenseRepository
 import com.knowledge.myfinapp.domain.repository.InsertResult
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -13,9 +13,9 @@ import timber.log.Timber
 import java.time.Instant
 import javax.inject.Inject
 
-class ExpenseLocalRepositoryImpl @Inject constructor(
+class RoomExpenseRepositoryImpl @Inject constructor(
     private val expenseDao: ExpenseDao,
-    ): ExpenseLocalRepository {
+    ): RoomExpenseRepository {
 
     override fun observeExpenses(): Flow<List<Expense>> {
         return expenseDao.observeExpenses()

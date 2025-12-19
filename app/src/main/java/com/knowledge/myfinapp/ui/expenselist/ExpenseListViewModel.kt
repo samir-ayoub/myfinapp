@@ -2,7 +2,7 @@ package com.knowledge.myfinapp.ui.expenselist
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.knowledge.myfinapp.domain.repository.ExpenseLocalRepository
+import com.knowledge.myfinapp.domain.repository.RoomExpenseRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.map
@@ -11,7 +11,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ExpenseListViewModel @Inject constructor(
-    private val expenseLocalRepository: ExpenseLocalRepository,
+    private val expenseLocalRepository: RoomExpenseRepository,
 ): ViewModel() {
     val uiExpenses = expenseLocalRepository.observeExpenses()
         .map { expenses ->

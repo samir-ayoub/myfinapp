@@ -4,7 +4,7 @@ import com.knowledge.myfinapp.domain.model.Expense
 import kotlinx.coroutines.flow.Flow
 import java.time.Instant
 
-interface ExpenseLocalRepository {
+interface RoomExpenseRepository {
     fun observeExpenses(): Flow<List<Expense>>
 
     suspend fun getUnsynced(): List<Expense>
