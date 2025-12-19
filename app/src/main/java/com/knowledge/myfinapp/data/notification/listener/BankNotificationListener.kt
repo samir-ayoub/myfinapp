@@ -25,6 +25,7 @@ class BankNotificationListener : NotificationListenerService() {
     @Inject lateinit var addExpenseUseCase: AddExpenseUseCase
 
     override fun onNotificationPosted(sbn: StatusBarNotification?) {
+        Timber.i("New notification detected. Parsing...")
         sbn ?: return
 
         val rawNotification = sbn.toRawNotification() ?: return

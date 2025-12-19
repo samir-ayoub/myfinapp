@@ -3,9 +3,12 @@ package com.knowledge.myfinapp.data.repository
 import com.knowledge.myfinapp.data.local.dao.ExpenseDao
 import com.knowledge.myfinapp.data.mappers.local.toDomain
 import com.knowledge.myfinapp.data.mappers.local.toEntity
+import com.knowledge.myfinapp.data.mappers.relation.toDomain
 import com.knowledge.myfinapp.domain.model.Expense
 import com.knowledge.myfinapp.domain.repository.ExpenseLocalRepository
 import com.knowledge.myfinapp.domain.repository.InsertResult
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import timber.log.Timber
 import java.time.Instant
 import javax.inject.Inject
@@ -13,6 +16,14 @@ import javax.inject.Inject
 class ExpenseLocalRepositoryImpl @Inject constructor(
     private val expenseDao: ExpenseDao,
     ): ExpenseLocalRepository {
+
+    override fun observeExpenses(): Flow<List<Expense>> {
+        return expenseDao.observeExpenses()
+            .map { list ->
+                list.map { it.toDomain() }
+            }
+    }
+
     override suspend fun getById(id: String?): Expense? {
         return expenseDao.getById(id)?.toDomain()
     }
@@ -24,8 +35,10 @@ class ExpenseLocalRepositoryImpl @Inject constructor(
     override suspend fun insert(expense: Expense): InsertResult {
         val result = expenseDao.insert(expense.toEntity(synced = false))
         return if (result > 0) {
+            Timber.i("Expense persisted ${expense.id}")
             InsertResult.INSERTED
         } else {
+            Timber.i("Duplicate expense ignored ${expense.id}")
             InsertResult.DUPLICATE
         }
     }
@@ -35,7 +48,7 @@ class ExpenseLocalRepositoryImpl @Inject constructor(
     }
 
     override suspend fun getUnsynced(): List<Expense> {
-        TODO("Not yet implemented")
+        return expenseDao.unsynced().map { it.toDomain() }
     }
 
     override suspend fun getUpdatedAfter(time: Instant): List<Expense> {

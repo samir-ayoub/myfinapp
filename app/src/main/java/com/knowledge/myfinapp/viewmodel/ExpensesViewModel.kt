@@ -1,14 +1,21 @@
 package com.knowledge.myfinapp.viewmodel
 
 import androidx.lifecycle.ViewModel
-import com.knowledge.myfinapp.domain.usecase.GetExpensesUseCase
-import com.knowledge.myfinapp.domain.usecase.SyncExpensesUseCase
+import androidx.lifecycle.viewModelScope
+import com.knowledge.myfinapp.domain.repository.ExpenseLocalRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
 
 @HiltViewModel
 class ExpensesViewModel @Inject constructor(
-    private val getExpenses: GetExpensesUseCase,
-    private val syncExpenses: SyncExpensesUseCase
+    private val expenseLocalRepository: ExpenseLocalRepository,
 ): ViewModel() {
+    val expenses = expenseLocalRepository.observeExpenses()
+        .stateIn(
+            viewModelScope,
+            SharingStarted.Lazily,
+            emptyList()
+        )
 }

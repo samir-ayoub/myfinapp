@@ -26,7 +26,8 @@ class ExpenseRepositoryImpl @Inject constructor(
 
     override suspend fun fetchRemoteExpenses(updatedAfter: Instant?): List<Expense> {
         Timber.i("Fetching expenses remotely")
-        return expenseApi.getExpenses(updatedAfter?.toEpochMilli()).map { it.toDomain() }
+        return emptyList()
+//        return expenseApi.getExpenses(updatedAfter?.toEpochMilli()).map { it.toDomain() }
     }
 
     override suspend fun getById(id: String): Expense? {
