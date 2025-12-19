@@ -1,4 +1,7 @@
 package com.knowledge.myfinapp.data.notification.parser
 
-class NotificationParser {
+import com.knowledge.myfinapp.data.notification.model.RawNotification
+
+interface NotificationParser {
+    fun parse(notification: RawNotification): ParseResult
 }

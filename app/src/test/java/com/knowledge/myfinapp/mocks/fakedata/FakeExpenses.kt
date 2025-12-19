@@ -1,5 +1,7 @@
 package com.knowledge.myfinapp.mocks.fakedata
 
+import com.knowledge.myfinapp.data.notification.model.Bank
+import com.knowledge.myfinapp.data.notification.model.ParsedExpenseData
 import com.knowledge.myfinapp.domain.model.Category
 import com.knowledge.myfinapp.domain.model.Expense
 import com.knowledge.myfinapp.domain.model.ExpenseSource
@@ -18,6 +20,14 @@ object FakeExpenses {
         source = ExpenseSource.NOTIFICATION,
         hash = "hash123",
         updatedAt = Instant.parse("2025-12-17T12:01:00Z")
+    )
+
+    val parsedExpenseData1 = ParsedExpenseData(
+        bank = Bank.CGD,
+        amount = BigDecimal("12.34"),
+        merchantRaw = "GLOVO BURGER KING",
+        occurredAt = Instant.parse("2025-12-17T10:00:00Z"),
+        isDebit = true
     )
 
     val expenses = listOf<Expense>(expense1)

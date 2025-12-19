@@ -14,7 +14,7 @@ import java.math.BigDecimal
 @Dao
 interface ExpenseDao {
     @Query("SELECT * FROM expenses WHERE id = :id")
-    suspend fun getById(id: String): ExpenseEntity?
+    suspend fun getById(id: String?): ExpenseEntity?
 
     @Transaction
     @Query("SELECT * FROM expenses ORDER BY occurredAt DESC")

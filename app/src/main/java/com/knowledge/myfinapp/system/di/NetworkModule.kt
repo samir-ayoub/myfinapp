@@ -1,6 +1,6 @@
 package com.knowledge.myfinapp.system.di
 
-import com.knowledge.myfinapp.data.remote.api.InstantAdapter
+import com.knowledge.myfinapp.data.remote.api.Adapters
 import com.knowledge.myfinapp.data.remote.api.ExpenseApi
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
@@ -20,7 +20,7 @@ object NetworkModule {
     fun provideMoshi(): Moshi =
         Moshi.Builder()
         .add(KotlinJsonAdapterFactory())
-        .add(InstantAdapter()) // Adapter customizado para Instant
+        .add(Adapters()) // Moshi works upon this
         .build()
 
     @Provides

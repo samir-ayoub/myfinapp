@@ -4,23 +4,23 @@ import android.content.Context
 import com.knowledge.myfinapp.core.util.isNetworkAvailable
 import com.knowledge.myfinapp.domain.model.Expense
 import com.knowledge.myfinapp.domain.repository.ExpenseRepository
-import com.knowledge.myfinapp.domain.repository.ExpenseSyncRepository
+import com.knowledge.myfinapp.domain.repository.ExpenseLocalRepository
 import java.time.Instant
 import java.time.Instant.now
 
 class SyncManager(
     private val context: Context,
-    private val syncRepository: ExpenseSyncRepository,  // para operações de Room
+    private val expenseLocalRepository: ExpenseLocalRepository,  // para operações de Room
     private val repository: ExpenseRepository,          // para lógica de domínio se precisar
     private val syncStore: SyncStore
 ) {
     suspend fun syncExpenses(): Unit {
         if (!context.isNetworkAvailable()) return
 
-        val unsyncedExpenses = syncRepository.getUnsynced()
+        val unsyncedExpenses = expenseLocalRepository.getUnsynced()
 
         if (pushUpdates(unsyncedExpenses)) {
-            syncRepository.markAsSynced(
+            expenseLocalRepository.markAsSynced(
                 unsyncedExpenses.map { it.id }
             )
         }
@@ -33,23 +33,23 @@ class SyncManager(
         syncStore.updateLastSync(now())
     }
 
-    suspend fun fetchRemoteUpdates(lastSync: Instant?): List<Expense> {
+    private suspend fun fetchRemoteUpdates(lastSync: Instant?): List<Expense> {
         return repository.fetchRemoteExpenses(updatedAfter = lastSync)
     }
-    suspend fun pushUpdates(expenses: List<Expense>): Boolean {
+    private suspend fun pushUpdates(expenses: List<Expense>): Boolean {
         if (expenses.isEmpty()) return false
 
         return repository.pushExpenses(expenses)
     }
 
-    suspend fun merge(remote: List<Expense>) {
+    private suspend fun merge(remote: List<Expense>) {
         val toUpsert = remote.filter { remoteExpense ->
             val local = repository.getById(remoteExpense.id)
             local == null || remoteExpense.updatedAt > local.updatedAt
         }
 
         if (toUpsert.isNotEmpty()) {
-            syncRepository.upsert(toUpsert)
+            expenseLocalRepository.upsert(toUpsert)
         }
     }
 }
