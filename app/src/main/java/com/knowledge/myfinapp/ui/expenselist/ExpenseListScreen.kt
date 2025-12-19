@@ -1,4 +1,4 @@
-package com.knowledge.myfinapp.ui.home
+package com.knowledge.myfinapp.ui.expenselist
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -20,8 +20,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
-import com.knowledge.myfinapp.domain.model.Expense
-import com.knowledge.myfinapp.viewmodel.ExpensesViewModel
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
@@ -29,13 +27,14 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AttachMoney
+import java.time.format.DateTimeFormatter
 
 @Composable
 @Preview
-fun HomeScreen(
-    viewModel: ExpensesViewModel = hiltViewModel()
+fun ExpenseListScreen(
+    viewModel: ExpenseListViewModel = hiltViewModel()
 ) {
-    val expenses by viewModel.expenses.collectAsState()
+    val expenses by viewModel.uiExpenses.collectAsState()
 
     Scaffold { paddingValues ->
         ExpenseList(expenses, paddingValues)
@@ -43,7 +42,7 @@ fun HomeScreen(
 }
 
 @Composable
-fun ExpenseList(expenses: List<Expense>, paddingValues: PaddingValues) {
+fun ExpenseList(expenses: List<UiExpense>, paddingValues: PaddingValues) {
     LazyColumn(
         modifier = Modifier.fillMaxSize(),
             contentPadding = paddingValues
@@ -56,7 +55,7 @@ fun ExpenseList(expenses: List<Expense>, paddingValues: PaddingValues) {
 }
 
 @Composable
-fun ExpenseRow(expense: Expense) {
+fun ExpenseRow(expense: UiExpense) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -82,7 +81,7 @@ fun ExpenseRow(expense: Expense) {
                 fontWeight = FontWeight.Bold
             )
             Text(
-                text = "data",
+                text = expense.occurredAt.format(DateTimeFormatter.ofPattern("dd MMM yyyy")),
                 fontSize = 16.sp,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )

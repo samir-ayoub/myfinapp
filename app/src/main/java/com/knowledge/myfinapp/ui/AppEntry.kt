@@ -8,7 +8,7 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.repeatOnLifecycle
-import com.knowledge.myfinapp.ui.home.HomeScreen
+import com.knowledge.myfinapp.ui.expenselist.ExpenseListScreen
 import com.knowledge.myfinapp.ui.onboarding.NotificationPermissionScreen
 import com.knowledge.myfinapp.ui.onboarding.NotificationPermissionViewModel
 import timber.log.Timber
@@ -29,7 +29,7 @@ fun AppEntry(
     Timber.i("App has permission to listen for notifications: $hasPermission")
 
     if (hasPermission) {
-        HomeScreen()
+        ExpenseListScreen()
     } else {
         NotificationPermissionScreen(viewModel)
     }
