@@ -5,6 +5,7 @@ import com.knowledge.myfinapp.core.util.isNetworkAvailable
 import com.knowledge.myfinapp.domain.model.Expense
 import com.knowledge.myfinapp.domain.repository.ExpenseRepository
 import com.knowledge.myfinapp.domain.repository.ExpenseLocalRepository
+import timber.log.Timber
 import java.time.Instant
 import java.time.Instant.now
 
@@ -19,15 +20,21 @@ class SyncManager(
 
         val unsyncedExpenses = expenseLocalRepository.getUnsynced()
 
+        Timber.i("has unsynced expenses: ${unsyncedExpenses.isNotEmpty()}")
+
         if (pushUpdates(unsyncedExpenses)) {
             expenseLocalRepository.markAsSynced(
-                unsyncedExpenses.map { it.id }
+                unsyncedExpenses.map {
+                    Timber.i("Marking ${it.merchant} expense as synced")
+                    it.id
+                }
             )
         }
 
         val lastSync: Instant? = syncStore.lastSyncTime()
         val remoteUpdates = fetchRemoteUpdates(lastSync)
 
+        Timber.i("merging remote expenses with local data")
         merge(remoteUpdates)
 
         syncStore.updateLastSync(now())

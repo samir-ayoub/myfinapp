@@ -9,6 +9,7 @@ import com.knowledge.myfinapp.data.notification.parser.MerchantNormalizer
 import com.knowledge.myfinapp.data.notification.parser.NotificationParser
 import com.knowledge.myfinapp.data.notification.parser.ParseError
 import com.knowledge.myfinapp.data.notification.parser.ParseResult
+import timber.log.Timber
 
 class NotificationParserImpl(
     private val bankDetector: BankDetector,
@@ -17,18 +18,26 @@ class NotificationParserImpl(
     ): NotificationParser {
 
     override fun parse(notification: RawNotification): ParseResult {
+        Timber.i("parse called")
+
         try {
             val bank = bankDetector.detect(
                 notification.packageName,
                 notification.text
             ) ?: return ParseResult.Ignored(IgnoredStatus.BANK_NOT_DETECTED)
 
+            Timber.i("parsed bank: $bank")
+
             val amount = amountExtractor.extract(notification.text)
                 ?: return ParseResult.Failure(
                     ParseError.AmountNotFound
                 )
 
+            Timber.i("parsed amount: $amount")
+
             val merchant = merchantNormalizer.normalize(notification.text)
+
+            Timber.i("parsed merchant: $merchant")
 
             val data = ParsedExpenseData(
                 bank = bank,
@@ -40,10 +49,10 @@ class NotificationParserImpl(
 
             return ParseResult.Success(data)
         } catch (t: Throwable) {
-//            logger.e(
-//                t,
-//                "Unexpected error while parsing notification: $notification"
-//            )
+            Timber.e(
+                t,
+                "Unexpected error while parsing notification: $notification"
+            )
             return ParseResult.Failure(
                 ParseError.Unexpected(t)
             )

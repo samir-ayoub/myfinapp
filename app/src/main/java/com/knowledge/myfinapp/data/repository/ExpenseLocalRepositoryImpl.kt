@@ -6,6 +6,7 @@ import com.knowledge.myfinapp.data.mappers.local.toEntity
 import com.knowledge.myfinapp.domain.model.Expense
 import com.knowledge.myfinapp.domain.repository.ExpenseLocalRepository
 import com.knowledge.myfinapp.domain.repository.InsertResult
+import timber.log.Timber
 import java.time.Instant
 import javax.inject.Inject
 
