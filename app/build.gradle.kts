@@ -101,8 +101,11 @@ dependencies {
     // Hilt
     implementation(libs.hilt.android)
     implementation(libs.workmanager)
-    implementation(libs.hilt.work)
     ksp(libs.hilt.compiler)
+
+    // WorkManager
+    implementation(libs.hilt.work)
+    ksp(libs.hilt.androidx.compiler)
 
     // Tests
     // JUnit 5

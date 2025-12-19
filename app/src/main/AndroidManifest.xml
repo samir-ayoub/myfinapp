@@ -13,12 +13,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyFinApp">
 
-        <!-- REMOVE o initializer automático do WorkManager -->
+        <!-- Removes auto initializing of WorkManager -->
         <provider
             android:name="androidx.startup.InitializationProvider"
             android:authorities="${applicationId}.androidx-startup"
-            android:exported="false"
-            tools:node="remove" />
+            android:exported="false">
+
+            <meta-data
+                android:name="androidx.work.WorkManagerInitializer"
+                tools:node="remove" />
+        </provider>
 
         <activity
             android:name=".MainActivity"

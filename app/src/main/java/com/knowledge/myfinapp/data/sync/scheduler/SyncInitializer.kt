@@ -1,20 +1,17 @@
 package com.knowledge.myfinapp.data.sync.scheduler
 
 import android.content.Context
+import androidx.startup.Initializer
 import androidx.work.Constraints
 import androidx.work.ExistingPeriodicWorkPolicy
 import androidx.work.NetworkType
 import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkManager
 import com.knowledge.myfinapp.data.sync.worker.SyncWorker
-import dagger.hilt.android.qualifiers.ApplicationContext
 import java.util.concurrent.TimeUnit
-import javax.inject.Inject
 
-class SyncInitializer @Inject constructor(
-    @param:ApplicationContext private val context: Context
-) {
-    fun init() {
+class SyncInitializer: Initializer<Unit> {
+    override fun create(context: Context) {
         val request =
             PeriodicWorkRequestBuilder<SyncWorker>(
                 15, TimeUnit.MINUTES
@@ -24,7 +21,7 @@ class SyncInitializer @Inject constructor(
                         .setRequiredNetworkType(NetworkType.CONNECTED)
                         .build()
                 )
-            .build()
+                .build()
 
         WorkManager.getInstance(context)
             .enqueueUniquePeriodicWork(
@@ -33,4 +30,6 @@ class SyncInitializer @Inject constructor(
                 request
             )
     }
+
+    override fun dependencies(): List<Class<out Initializer<*>>> = emptyList()
 }

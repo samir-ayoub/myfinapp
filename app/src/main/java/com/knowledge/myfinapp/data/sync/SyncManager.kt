@@ -5,17 +5,21 @@ import com.knowledge.myfinapp.core.util.isNetworkAvailable
 import com.knowledge.myfinapp.domain.model.Expense
 import com.knowledge.myfinapp.domain.repository.ExpenseRepository
 import com.knowledge.myfinapp.domain.repository.ExpenseLocalRepository
+import dagger.hilt.android.qualifiers.ApplicationContext
 import timber.log.Timber
 import java.time.Instant
 import java.time.Instant.now
+import javax.inject.Inject
 
-class SyncManager(
-    private val context: Context,
+class SyncManager @Inject constructor(
+    @param:ApplicationContext private val context: Context,
     private val expenseLocalRepository: ExpenseLocalRepository,  // para operações de Room
     private val repository: ExpenseRepository,          // para lógica de domínio se precisar
     private val syncStore: SyncStore
 ) {
     suspend fun syncExpenses(): Unit {
+        Timber.i("sync expenses called")
+
         if (!context.isNetworkAvailable()) return
 
         val unsyncedExpenses = expenseLocalRepository.getUnsynced()
