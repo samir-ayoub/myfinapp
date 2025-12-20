@@ -2,7 +2,6 @@ package com.knowledge.myfinapp.mocks.fakedata
 
 import com.knowledge.myfinapp.data.notification.model.Bank
 import com.knowledge.myfinapp.data.notification.model.ParsedExpenseData
-import com.knowledge.myfinapp.domain.model.Category
 import com.knowledge.myfinapp.domain.model.Expense
 import com.knowledge.myfinapp.domain.model.ExpenseSource
 import com.knowledge.myfinapp.domain.model.Merchant
@@ -15,7 +14,7 @@ object FakeExpenses {
         amount = BigDecimal("42.50"),
         description = "Almoço",
         merchant = Merchant(id = "m1", name = "Burger King", normalizedName = "BURGER KING"),
-        category = Category(id = "c1", name = "Food", color = "#FF0000"),
+        category = FakeCategories.category1,
         occurredAt = Instant.parse("2025-12-17T12:00:00Z"),
         source = ExpenseSource.NOTIFICATION,
         hash = "hash123",
