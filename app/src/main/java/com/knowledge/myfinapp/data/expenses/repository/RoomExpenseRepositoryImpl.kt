@@ -1,9 +1,14 @@
 package com.knowledge.myfinapp.data.expenses.repository
 
+import androidx.room.withTransaction
+import com.knowledge.myfinapp.data.category.mapper.toEntity
 import com.knowledge.myfinapp.data.local.dao.ExpenseDao
 import com.knowledge.myfinapp.data.entities.mappers.local.toDomain
 import com.knowledge.myfinapp.data.entities.mappers.local.toEntity
 import com.knowledge.myfinapp.data.entities.mappers.relation.toDomain
+import com.knowledge.myfinapp.data.local.AppDatabase
+import com.knowledge.myfinapp.data.local.dao.CategoryDao
+import com.knowledge.myfinapp.data.local.dao.MerchantDao
 import com.knowledge.myfinapp.domain.model.Expense
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -12,7 +17,10 @@ import java.time.Instant
 import javax.inject.Inject
 
 class RoomExpenseRepositoryImpl @Inject constructor(
+    private val db: AppDatabase,
     private val expenseDao: ExpenseDao,
+    private val categoryDao: CategoryDao,
+    private val merchantDao: MerchantDao
     ): RoomExpenseRepository {
 
     override fun observeExpenses(): Flow<List<Expense>> {
@@ -31,13 +39,26 @@ class RoomExpenseRepositoryImpl @Inject constructor(
     }
 
     override suspend fun insert(expense: Expense): InsertResult {
-        val result = expenseDao.insert(expense.toEntity(synced = false))
-        return if (result > 0) {
-            Timber.i("Expense persisted ${expense.id}")
-            InsertResult.INSERTED
-        } else {
-            Timber.i("Duplicate expense ignored ${expense.id}")
-            InsertResult.DUPLICATE
+        return db.withTransaction {
+            expense.category?.let { category ->
+                categoryDao.insert(category.toEntity())
+            }
+
+            expense.merchant?.let { merchant ->
+                merchantDao.insert(merchant.toEntity())
+            }
+
+            val result = expenseDao.insert(
+                expense.toEntity(synced = false)
+            )
+
+            if (result > 0) {
+                Timber.i("Expense persisted ${expense.id}")
+                InsertResult.INSERTED
+            } else {
+                Timber.i("Duplicate expense ignored ${expense.id}")
+                InsertResult.DUPLICATE
+            }
         }
     }
 
