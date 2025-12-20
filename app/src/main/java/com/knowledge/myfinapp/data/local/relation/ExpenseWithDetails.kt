@@ -2,7 +2,7 @@ package com.knowledge.myfinapp.data.local.relation
 
 import androidx.room.Embedded
 import androidx.room.Relation
-import com.knowledge.myfinapp.data.local.entity.CategoryEntity
+import com.knowledge.myfinapp.data.category.model.CategoryEntity
 import com.knowledge.myfinapp.data.local.entity.ExpenseEntity
 import com.knowledge.myfinapp.data.local.entity.MerchantEntity
 

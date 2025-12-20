@@ -1,10 +1,9 @@
-package com.knowledge.myfinapp.data.repository
+package com.knowledge.myfinapp.data.expenses.repository
 
-import com.knowledge.myfinapp.data.mappers.remote.toDto
+import com.knowledge.myfinapp.data.entities.mappers.remote.toDto
 import com.knowledge.myfinapp.data.remote.api.ExpenseApi
 import com.knowledge.myfinapp.data.remote.dto.toDomain
 import com.knowledge.myfinapp.domain.model.Expense
-import com.knowledge.myfinapp.domain.repository.ExpenseRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import timber.log.Timber

@@ -1,12 +1,10 @@
-package com.knowledge.myfinapp.data.repository
+package com.knowledge.myfinapp.data.expenses.repository
 
 import com.knowledge.myfinapp.data.local.dao.ExpenseDao
-import com.knowledge.myfinapp.data.mappers.local.toDomain
-import com.knowledge.myfinapp.data.mappers.local.toEntity
-import com.knowledge.myfinapp.data.mappers.relation.toDomain
+import com.knowledge.myfinapp.data.entities.mappers.local.toDomain
+import com.knowledge.myfinapp.data.entities.mappers.local.toEntity
+import com.knowledge.myfinapp.data.entities.mappers.relation.toDomain
 import com.knowledge.myfinapp.domain.model.Expense
-import com.knowledge.myfinapp.domain.repository.RoomExpenseRepository
-import com.knowledge.myfinapp.domain.repository.InsertResult
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import timber.log.Timber

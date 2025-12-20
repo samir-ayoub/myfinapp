@@ -1,8 +1,11 @@
 package com.knowledge.myfinapp.data.notification.impl
 
+import com.knowledge.myfinapp.data.category.heuristic.CategoryHeuristic
+import com.knowledge.myfinapp.data.category.repository.CategoryRepository
 import com.knowledge.myfinapp.data.notification.model.Bank
 import com.knowledge.myfinapp.data.notification.model.ParsedExpenseData
 import com.knowledge.myfinapp.data.notification.parser.ExpenseBuilder
+import com.knowledge.myfinapp.domain.model.Category
 import com.knowledge.myfinapp.domain.model.Expense
 import com.knowledge.myfinapp.domain.model.ExpenseSource
 import java.math.BigDecimal
@@ -16,10 +19,14 @@ data class ExpenseHashData(
     val merchant: String?,
     val occurredAt: Instant
 )
-class ExpenseBuilderImpl: ExpenseBuilder {
-    override fun build(data: ParsedExpenseData): Expense {
+class ExpenseBuilderImpl(
+    private val categoryHeuristic: CategoryHeuristic,
+    private val categoryRepository: CategoryRepository
+) : ExpenseBuilder {
+    override suspend fun build(data: ParsedExpenseData): Expense {
         val occurredAt = data.occurredAt
         val source = ExpenseSource.NOTIFICATION
+        val category = getCategory(data.merchantRaw)
         val hash = generateHash(ExpenseHashData(
             data.bank,
             data.amount,
@@ -32,12 +39,32 @@ class ExpenseBuilderImpl: ExpenseBuilder {
             amount = data.amount,
             description = data.merchantRaw ?: "Unknown merchant",
             merchant = null,
-            category = null,
+            category = category,
             occurredAt = occurredAt,
             source = source,
             hash = hash,
             updatedAt = Instant.now()
         )
+    }
+
+    private suspend fun getCategory(merchantRaw: String?): Category? {
+        val suggestedName = merchantRaw?.let { categoryHeuristic.categorize(it) }
+
+        if (suggestedName.isNullOrBlank()) return null
+
+        var currentCategory = suggestedName.let { name ->
+            categoryRepository.getAllCategories().firstOrNull() { it.name == name}
+        }
+
+        if (currentCategory == null) {
+            currentCategory = Category(
+                id = UUID.randomUUID().toString(),
+                name = suggestedName,
+                color = "#FF0000"
+            ).also {categoryRepository.save(it)  }
+        }
+
+        return currentCategory
     }
 
     private fun generateHash(hashData: ExpenseHashData): String {

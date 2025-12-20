@@ -1,4 +1,4 @@
-package com.knowledge.myfinapp.data.local.entity
+package com.knowledge.myfinapp.data.category.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

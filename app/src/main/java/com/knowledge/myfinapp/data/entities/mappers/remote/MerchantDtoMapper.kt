@@ -1,4 +1,4 @@
-package com.knowledge.myfinapp.data.mappers.remote
+package com.knowledge.myfinapp.data.entities.mappers.remote
 
 import com.knowledge.myfinapp.data.remote.dto.MerchantDto
 import com.knowledge.myfinapp.domain.model.Merchant

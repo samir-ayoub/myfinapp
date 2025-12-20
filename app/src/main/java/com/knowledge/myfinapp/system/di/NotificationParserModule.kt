@@ -1,5 +1,7 @@
 package com.knowledge.myfinapp.system.di
 
+import com.knowledge.myfinapp.data.category.heuristic.CategoryHeuristic
+import com.knowledge.myfinapp.data.category.repository.CategoryRepository
 import com.knowledge.myfinapp.data.notification.impl.BankDetectorImpl
 import com.knowledge.myfinapp.data.notification.impl.NotificationParserImpl
 import com.knowledge.myfinapp.data.notification.impl.AmountExtractorImpl
@@ -42,5 +44,11 @@ object NotificationParserModule {
 
     @Provides
     @Singleton
-     fun provideExpenseBuilder(): ExpenseBuilder = ExpenseBuilderImpl()
+     fun provideExpenseBuilder(
+        categoryHeuristic: CategoryHeuristic,
+        categoryRepository: CategoryRepository
+     ): ExpenseBuilder = ExpenseBuilderImpl(
+        categoryHeuristic,
+         categoryRepository
+     )
 }

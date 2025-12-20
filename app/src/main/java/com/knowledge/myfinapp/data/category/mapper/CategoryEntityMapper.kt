@@ -1,6 +1,6 @@
-package com.knowledge.myfinapp.data.mappers.local
+package com.knowledge.myfinapp.data.category.mapper
 
-import com.knowledge.myfinapp.data.local.entity.CategoryEntity
+import com.knowledge.myfinapp.data.category.model.CategoryEntity
 import com.knowledge.myfinapp.domain.model.Category
 
 fun CategoryEntity.toDomain(): Category =

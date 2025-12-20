@@ -3,8 +3,8 @@ package com.knowledge.myfinapp.data.sync
 import android.content.Context
 import com.knowledge.myfinapp.core.util.isNetworkAvailable
 import com.knowledge.myfinapp.domain.model.Expense
-import com.knowledge.myfinapp.domain.repository.ExpenseRepository
-import com.knowledge.myfinapp.domain.repository.RoomExpenseRepository
+import com.knowledge.myfinapp.data.expenses.repository.ExpenseRepository
+import com.knowledge.myfinapp.data.expenses.repository.RoomExpenseRepository
 import dagger.hilt.android.qualifiers.ApplicationContext
 import timber.log.Timber
 import java.time.Instant

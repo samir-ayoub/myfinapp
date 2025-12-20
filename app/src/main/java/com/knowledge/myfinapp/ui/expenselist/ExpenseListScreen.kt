@@ -64,8 +64,8 @@ fun ExpenseRow(expense: UiExpense) {
             horizontalArrangement = Arrangement.SpaceBetween
     ) {
         Icon(
-            imageVector = Icons.Default.AttachMoney, // ou outro icone
-            contentDescription = "Category Icon",
+            imageVector = expense.categoryIcon,
+            contentDescription = expense.category,
             modifier = Modifier.size(40.dp)
         )
 

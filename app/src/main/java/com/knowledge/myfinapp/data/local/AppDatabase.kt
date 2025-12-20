@@ -4,7 +4,7 @@ import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.knowledge.myfinapp.data.local.dao.ExpenseDao
-import com.knowledge.myfinapp.data.local.entity.CategoryEntity
+import com.knowledge.myfinapp.data.category.model.CategoryEntity
 import com.knowledge.myfinapp.data.local.entity.ExpenseEntity
 import com.knowledge.myfinapp.data.local.entity.MerchantEntity
 import com.knowledge.myfinapp.data.local.converter.InstantConverter

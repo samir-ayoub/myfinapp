@@ -5,5 +5,5 @@ import com.knowledge.myfinapp.domain.model.Expense
 
 // generates hash, sets updatedAt and target source
 interface ExpenseBuilder {
-    fun build(data: ParsedExpenseData): Expense
+    suspend fun build(data: ParsedExpenseData): Expense
 }

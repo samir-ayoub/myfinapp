@@ -7,6 +7,10 @@ import com.knowledge.myfinapp.data.notification.listener.NotificationDispatcher
 import com.knowledge.myfinapp.data.notification.model.RawNotification
 import dagger.hilt.android.AndroidEntryPoint
 import jakarta.inject.Inject
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.launch
 import timber.log.Timber
 import java.time.Instant
 
@@ -15,13 +19,22 @@ class AndroidNotificationListener : NotificationListenerService() {
 
     @Inject lateinit var notificationDispatcher: NotificationDispatcher
 
+    private val serviceScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
+
     override fun onNotificationPosted(sbn: StatusBarNotification?) {
         Timber.i("New notification detected. Parsing...")
         sbn ?: return
 
         val rawNotification = sbn.toRawNotification() ?: return
 
-        notificationDispatcher.dispatch(rawNotification)
+
+        serviceScope.launch {
+            try {
+                notificationDispatcher.dispatch(rawNotification)
+            } catch (e: Exception) {
+                Timber.e(e, "Error dispatching notification")
+            }
+        }
     }
 
 

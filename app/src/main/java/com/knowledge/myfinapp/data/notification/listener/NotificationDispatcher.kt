@@ -19,7 +19,7 @@ class NotificationDispatcher @Inject constructor(
     private val addExpenseUseCase: AddExpenseUseCase
 ) {
 
-    fun dispatch(rawNotification: RawNotification) {
+    suspend fun dispatch(rawNotification: RawNotification) {
         when (val result = notificationParser.parse(rawNotification)) {
             is ParseResult.Failure -> Timber.e("Parse failed")
             is ParseResult.Ignored -> Timber.i("Parse ignored: ${result.reason}")

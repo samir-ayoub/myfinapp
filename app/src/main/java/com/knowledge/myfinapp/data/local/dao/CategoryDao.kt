@@ -5,7 +5,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Upsert
-import com.knowledge.myfinapp.data.local.entity.CategoryEntity
+import com.knowledge.myfinapp.data.category.model.CategoryEntity
 
 @Dao
 interface CategoryDao {

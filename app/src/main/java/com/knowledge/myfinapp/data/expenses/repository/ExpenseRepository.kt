@@ -1,4 +1,4 @@
-package com.knowledge.myfinapp.domain.repository
+package com.knowledge.myfinapp.data.expenses.repository
 
 import com.knowledge.myfinapp.domain.model.Expense
 import kotlinx.coroutines.flow.Flow

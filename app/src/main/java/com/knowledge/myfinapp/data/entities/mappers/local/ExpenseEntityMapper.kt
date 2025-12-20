@@ -1,4 +1,4 @@
-package com.knowledge.myfinapp.data.mappers.local
+package com.knowledge.myfinapp.data.entities.mappers.local
 
 import com.knowledge.myfinapp.data.local.entity.ExpenseEntity
 import com.knowledge.myfinapp.domain.model.Expense

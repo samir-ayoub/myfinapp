@@ -2,7 +2,7 @@ package com.knowledge.myfinapp.domain.usecase
 
 import com.knowledge.myfinapp.data.sync.scheduler.SyncTrigger
 import com.knowledge.myfinapp.domain.model.Expense
-import com.knowledge.myfinapp.domain.repository.RoomExpenseRepository
+import com.knowledge.myfinapp.data.expenses.repository.RoomExpenseRepository
 import timber.log.Timber
 import javax.inject.Inject
 
