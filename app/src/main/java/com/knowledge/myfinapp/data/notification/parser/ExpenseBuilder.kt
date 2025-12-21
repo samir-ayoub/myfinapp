@@ -1,9 +1,10 @@
 package com.knowledge.myfinapp.data.notification.parser
 
 import com.knowledge.myfinapp.data.notification.model.ParsedExpenseData
+import com.knowledge.myfinapp.domain.model.Category
 import com.knowledge.myfinapp.domain.model.Expense
 
 // generates hash, sets updatedAt and target source
 interface ExpenseBuilder {
-    suspend fun build(data: ParsedExpenseData): Expense
+    fun build(data: ParsedExpenseData, category: Category?): Expense
 }

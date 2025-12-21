@@ -1,7 +1,5 @@
 package com.knowledge.myfinapp.data.notification.impl
 
-import com.knowledge.myfinapp.data.category.heuristic.CategoryHeuristic
-import com.knowledge.myfinapp.data.category.repository.CategoryRepository
 import com.knowledge.myfinapp.data.notification.model.Bank
 import com.knowledge.myfinapp.data.notification.model.ParsedExpenseData
 import com.knowledge.myfinapp.data.notification.parser.ExpenseBuilder
@@ -19,19 +17,13 @@ data class ExpenseHashData(
     val merchant: String?,
     val occurredAt: Instant
 )
-class ExpenseBuilderImpl(
-    private val categoryHeuristic: CategoryHeuristic,
-    private val categoryRepository: CategoryRepository
-) : ExpenseBuilder {
-    override suspend fun build(data: ParsedExpenseData): Expense {
-        val occurredAt = data.occurredAt
-        val source = ExpenseSource.NOTIFICATION
-        val category = getCategory(data.merchantRaw)
+class ExpenseBuilderImpl: ExpenseBuilder {
+    override fun build(data: ParsedExpenseData, category: Category?): Expense {
         val hash = generateHash(ExpenseHashData(
             data.bank,
             data.amount,
             data.merchantRaw,
-            occurredAt
+            data.occurredAt
         ))
 
         return Expense(
@@ -40,31 +32,11 @@ class ExpenseBuilderImpl(
             description = data.merchantRaw ?: "Unknown merchant",
             merchant = null,
             category = category,
-            occurredAt = occurredAt,
-            source = source,
+            occurredAt = data.occurredAt,
+            source = ExpenseSource.NOTIFICATION,
             hash = hash,
             updatedAt = Instant.now()
         )
-    }
-
-    private suspend fun getCategory(merchantRaw: String?): Category? {
-        val suggestedName = merchantRaw?.let { categoryHeuristic.categorize(it) }
-
-        if (suggestedName.isNullOrBlank()) return null
-
-        var currentCategory = suggestedName.let { name ->
-            categoryRepository.getAllCategories().firstOrNull() { it.name == name}
-        }
-
-        if (currentCategory == null) {
-            currentCategory = Category(
-                id = UUID.randomUUID().toString(),
-                name = suggestedName,
-                color = "#FF0000"
-            ).also {categoryRepository.save(it)  }
-        }
-
-        return currentCategory
     }
 
     private fun generateHash(hashData: ExpenseHashData): String {
@@ -79,9 +51,8 @@ class ExpenseBuilderImpl(
         return sha256(input)
     }
 
-    private fun sha256(input: String): String {
-        val bytes = MessageDigest.getInstance("SHA-256").digest(input.toByteArray())
-
-        return bytes.joinToString("") { "%02x".format(it) }
-    }
+    private fun sha256(input: String): String =
+        MessageDigest.getInstance("SHA-256")
+            .digest(input.toByteArray())
+            .joinToString("") { "%02x".format(it) }
 }

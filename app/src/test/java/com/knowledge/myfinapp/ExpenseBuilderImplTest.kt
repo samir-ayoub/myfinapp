@@ -1,6 +1,6 @@
 package com.knowledge.myfinapp
 
-import com.knowledge.myfinapp.data.category.heuristic.CategoryHeuristic
+import com.knowledge.myfinapp.data.category.resolver.CategoryResolver
 import com.knowledge.myfinapp.data.category.repository.CategoryRepository
 import com.knowledge.myfinapp.data.notification.impl.ExpenseBuilderImpl
 import com.knowledge.myfinapp.domain.model.ExpenseSource
@@ -22,7 +22,7 @@ import java.time.Instant
 
 class ExpenseBuilderImplTest {
     private lateinit var cut: ExpenseBuilderImpl
-    private val mockCategoryHeuristic = mockk<CategoryHeuristic>()
+    private val mockCategoryHeuristic = mockk<CategoryResolver>()
     private val mockCategoryRepository = mockk<CategoryRepository>()
 
     @BeforeEach

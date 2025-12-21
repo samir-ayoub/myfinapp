@@ -1,7 +1,5 @@
 package com.knowledge.myfinapp.system.di
 
-import com.knowledge.myfinapp.data.category.heuristic.CategoryHeuristic
-import com.knowledge.myfinapp.data.category.heuristic.CategoryHeuristicImpl
 import com.knowledge.myfinapp.data.category.repository.CategoryRepository
 import com.knowledge.myfinapp.data.category.repository.CategoryRepositoryImpl
 import dagger.Binds
@@ -14,11 +12,6 @@ import dagger.hilt.components.SingletonComponent
 @InstallIn(SingletonComponent::class)
 abstract class CategoryModule {
 
-    @Binds
-    @Singleton
-    abstract fun bindCategoryHeuristic(
-        impl: CategoryHeuristicImpl
-    ): CategoryHeuristic
 
     @Binds
     @Singleton

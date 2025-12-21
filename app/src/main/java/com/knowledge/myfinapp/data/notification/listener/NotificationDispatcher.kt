@@ -23,17 +23,13 @@ class NotificationDispatcher @Inject constructor(
         when (val result = notificationParser.parse(rawNotification)) {
             is ParseResult.Failure -> Timber.e("Parse failed")
             is ParseResult.Ignored -> Timber.i("Parse ignored: ${result.reason}")
-            is ParseResult.Success -> {
-                val expense = expenseBuilder.build(result.data)
-                Timber.i("Registering new expense: $expense")
-                addExpense(expense)
-            }
+            is ParseResult.Success -> addExpenseUseCase(result.data)
         }
     }
-
-    private fun addExpense(expense: com.knowledge.myfinapp.domain.model.Expense) {
-        CoroutineScope(Dispatchers.IO).launch {
-            addExpenseUseCase(expense)
-        }
-    }
+//
+//    private fun addExpense(expense: com.knowledge.myfinapp.domain.model.Expense) {
+//        CoroutineScope(Dispatchers.IO).launch {
+//            addExpenseUseCase(expense)
+//        }
+//    }
 }

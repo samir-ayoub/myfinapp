@@ -1,6 +1,6 @@
 package com.knowledge.myfinapp
 
-import com.knowledge.myfinapp.data.category.heuristic.CategoryHeuristicImpl
+import com.knowledge.myfinapp.data.category.resolver.CategoryResolver
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.params.ParameterizedTest
@@ -9,11 +9,11 @@ import org.junit.jupiter.params.provider.MethodSource
 import java.util.stream.Stream
 
 class CategoryHeuristicImplTest {
-    private lateinit var cut: CategoryHeuristicImpl
+    private lateinit var cut: CategoryResolver
 
     @BeforeEach
     fun setup() {
-        cut = CategoryHeuristicImpl()
+        cut = CategoryResolver()
     }
 
     @ParameterizedTest(name = "merchant=\"{0}\" → category=\"{1}\"")

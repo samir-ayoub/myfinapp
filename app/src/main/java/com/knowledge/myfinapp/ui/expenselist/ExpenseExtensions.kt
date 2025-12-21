@@ -15,11 +15,6 @@ import java.time.ZoneId
 fun Expense.toUiExpense(): UiExpense {
     val categoryName = category?.name ?: "Unknown"
     val zone = ZoneId.systemDefault()
-    Timber.i("samir category ${category}")
-    Timber.i("samir category name  ${category?.name}")
-
-    Timber.i("samir catgoryname ${categoryName.toCategoryIcon()}")
-
 
     return UiExpense(
         id = id,
@@ -33,7 +28,6 @@ fun Expense.toUiExpense(): UiExpense {
 }
 
 fun String.toCategoryIcon(): ImageVector {
-    Timber.i("samir $this")
     return when (this.lowercase()) {
         "food" -> Icons.Default.Fastfood
         "transport" -> Icons.Default.DirectionsCar
