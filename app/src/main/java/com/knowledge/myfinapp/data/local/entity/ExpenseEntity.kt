@@ -6,6 +6,7 @@ import androidx.room.PrimaryKey
 import androidx.room.ForeignKey
 import java.math.BigDecimal
 import com.knowledge.myfinapp.data.category.model.CategoryEntity
+import com.knowledge.myfinapp.data.merchant.model.MerchantEntity
 
 @Entity(
     tableName = "expenses",

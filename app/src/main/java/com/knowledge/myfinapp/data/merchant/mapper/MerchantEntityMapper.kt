@@ -1,6 +1,6 @@
-package com.knowledge.myfinapp.data.entities.mappers.local
+package com.knowledge.myfinapp.data.merchant.mapper
 
-import com.knowledge.myfinapp.data.local.entity.MerchantEntity
+import com.knowledge.myfinapp.data.merchant.model.MerchantEntity
 import com.knowledge.myfinapp.domain.model.Merchant
 
 fun  MerchantEntity.toDomain(): Merchant =

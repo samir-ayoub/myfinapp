@@ -6,6 +6,7 @@ import com.knowledge.myfinapp.data.notification.parser.ExpenseBuilder
 import com.knowledge.myfinapp.domain.model.Category
 import com.knowledge.myfinapp.domain.model.Expense
 import com.knowledge.myfinapp.domain.model.ExpenseSource
+import com.knowledge.myfinapp.domain.model.Merchant
 import java.math.BigDecimal
 import java.security.MessageDigest
 import java.time.Instant
@@ -18,7 +19,11 @@ data class ExpenseHashData(
     val occurredAt: Instant
 )
 class ExpenseBuilderImpl: ExpenseBuilder {
-    override fun build(data: ParsedExpenseData, category: Category?): Expense {
+    override fun build(
+        data: ParsedExpenseData,
+        category: Category?,
+        merchant: Merchant?
+    ): Expense {
         val hash = generateHash(ExpenseHashData(
             data.bank,
             data.amount,
@@ -30,7 +35,7 @@ class ExpenseBuilderImpl: ExpenseBuilder {
             id = UUID.randomUUID().toString(),
             amount = data.amount,
             description = data.merchantRaw ?: "Unknown merchant",
-            merchant = null,
+            merchant = merchant,
             category = category,
             occurredAt = data.occurredAt,
             source = ExpenseSource.NOTIFICATION,

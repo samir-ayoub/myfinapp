@@ -6,7 +6,7 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Upsert
 import com.knowledge.myfinapp.data.local.entity.ExpenseEntity
-import com.knowledge.myfinapp.data.local.entity.MerchantEntity
+import com.knowledge.myfinapp.data.merchant.model.MerchantEntity
 
 @Dao
 interface MerchantDao {

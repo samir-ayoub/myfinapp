@@ -2,9 +2,11 @@ package com.knowledge.myfinapp.data.expenses.repository
 
 import androidx.room.withTransaction
 import com.knowledge.myfinapp.data.category.mapper.toEntity
-import com.knowledge.myfinapp.data.local.dao.ExpenseDao
 import com.knowledge.myfinapp.data.entities.mappers.local.toDomain
 import com.knowledge.myfinapp.data.entities.mappers.local.toEntity
+import com.knowledge.myfinapp.data.local.dao.ExpenseDao
+import com.knowledge.myfinapp.data.merchant.mapper.toDomain
+import com.knowledge.myfinapp.data.merchant.mapper.toEntity
 import com.knowledge.myfinapp.data.entities.mappers.relation.toDomain
 import com.knowledge.myfinapp.data.local.AppDatabase
 import com.knowledge.myfinapp.data.local.dao.CategoryDao

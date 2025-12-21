@@ -1,6 +1,7 @@
 package com.knowledge.myfinapp.data.expenses.repository
 
 import com.knowledge.myfinapp.data.entities.mappers.remote.toDto
+import com.knowledge.myfinapp.data.merchant.mapper.toDto
 import com.knowledge.myfinapp.data.remote.api.ExpenseApi
 import com.knowledge.myfinapp.data.remote.dto.toDomain
 import com.knowledge.myfinapp.domain.model.Expense

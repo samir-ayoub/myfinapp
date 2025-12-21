@@ -1,6 +1,7 @@
 package com.knowledge.myfinapp.data.entities.mappers.remote
 
 import com.knowledge.myfinapp.data.category.mapper.toDto
+import com.knowledge.myfinapp.data.merchant.mapper.toDto
 import com.knowledge.myfinapp.data.remote.dto.ExpenseDto
 import com.knowledge.myfinapp.domain.model.Expense
 

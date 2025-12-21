@@ -2,7 +2,7 @@ package com.knowledge.myfinapp.data.entities.mappers.relation
 
 import com.knowledge.myfinapp.data.local.relation.ExpenseWithDetails
 import com.knowledge.myfinapp.data.category.mapper.toDomain
-import com.knowledge.myfinapp.data.entities.mappers.local.toDomain
+import com.knowledge.myfinapp.data.merchant.mapper.toDomain
 import com.knowledge.myfinapp.domain.model.Expense
 import com.knowledge.myfinapp.domain.model.ExpenseSource
 import java.time.Instant

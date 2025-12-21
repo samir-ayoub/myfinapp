@@ -4,7 +4,7 @@ import com.knowledge.myfinapp.domain.model.Category
 import com.knowledge.myfinapp.domain.model.Merchant
 import javax.inject.Inject
 
-class CategoryRepositoryImpl @Inject constructor() : CategoryRepository {
+class CategoryRepositoryImpl @Inject constructor(): CategoryRepository {
     override suspend fun getAllCategories(): List<Category> {
         return emptyList()
         TODO("Not yet implemented")
