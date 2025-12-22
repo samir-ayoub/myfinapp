@@ -1,6 +1,6 @@
 package com.knowledge.myfinapp.data.notification.parser
 
-import com.knowledge.myfinapp.data.notification.model.ParsedExpenseData
+import com.knowledge.myfinapp.data.model.ParsedExpenseData
 
 sealed class ParseResult {
     data class Success(val data: ParsedExpenseData) : ParseResult()

@@ -3,8 +3,8 @@ package com.knowledge.myfinapp.system.listener
 import android.app.Notification
 import android.service.notification.NotificationListenerService
 import android.service.notification.StatusBarNotification
-import com.knowledge.myfinapp.data.notification.listener.NotificationDispatcher
-import com.knowledge.myfinapp.data.notification.model.RawNotification
+import com.knowledge.myfinapp.data.notification.delegate.NotificationDispatcher
+import com.knowledge.myfinapp.data.model.RawNotification
 import dagger.hilt.android.AndroidEntryPoint
 import jakarta.inject.Inject
 import kotlinx.coroutines.CoroutineScope

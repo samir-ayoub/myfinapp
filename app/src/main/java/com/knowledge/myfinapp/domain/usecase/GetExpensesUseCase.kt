@@ -1,8 +1,7 @@
 package com.knowledge.myfinapp.domain.usecase
 
 import com.knowledge.myfinapp.domain.model.Expense
-import com.knowledge.myfinapp.data.expenses.repository.ExpenseRepository
-import com.knowledge.myfinapp.data.expenses.repository.RoomExpenseRepository
+import com.knowledge.myfinapp.data.repository.RoomExpenseRepository
 import jakarta.inject.Inject
 import kotlinx.coroutines.flow.Flow
 

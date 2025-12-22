@@ -2,10 +2,10 @@ package com.knowledge.myfinapp.system.di
 
 import android.content.Context
 import androidx.room.Room
-import com.knowledge.myfinapp.data.local.AppDatabase
-import com.knowledge.myfinapp.data.local.dao.CategoryDao
-import com.knowledge.myfinapp.data.local.dao.ExpenseDao
-import com.knowledge.myfinapp.data.local.dao.MerchantDao
+import com.knowledge.myfinapp.data.database.AppDatabase
+import com.knowledge.myfinapp.data.database.dao.CategoryDao
+import com.knowledge.myfinapp.data.database.dao.ExpenseDao
+import com.knowledge.myfinapp.data.database.dao.MerchantDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

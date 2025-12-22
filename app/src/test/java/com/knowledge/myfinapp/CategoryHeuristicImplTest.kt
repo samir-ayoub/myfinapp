@@ -1,6 +1,6 @@
 package com.knowledge.myfinapp
 
-import com.knowledge.myfinapp.data.category.resolver.CategoryResolver
+import com.knowledge.myfinapp.data.CategoryResolver
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.params.ParameterizedTest

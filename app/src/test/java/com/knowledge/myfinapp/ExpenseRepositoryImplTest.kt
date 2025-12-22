@@ -1,7 +1,7 @@
 package com.knowledge.myfinapp
 
 import com.knowledge.myfinapp.data.remote.api.ExpenseApi
-import com.knowledge.myfinapp.data.expenses.repository.ExpenseRepositoryImpl
+import com.knowledge.myfinapp.data.repository.ExpenseRepositoryImpl
 import com.knowledge.myfinapp.mocks.fakedata.FakeExpenseDtos
 import com.knowledge.myfinapp.mocks.fakedata.FakeExpenses
 import com.knowledge.myfinapp.mocks.fakedata.FakeInstant

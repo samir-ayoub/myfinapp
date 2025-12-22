@@ -1,7 +1,7 @@
 package com.knowledge.myfinapp.system.di
 
-import com.knowledge.myfinapp.data.category.repository.CategoryRepository
-import com.knowledge.myfinapp.data.category.repository.CategoryRepositoryImpl
+import com.knowledge.myfinapp.data.repository.CategoryRepository
+import com.knowledge.myfinapp.data.repository.CategoryRepositoryImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

@@ -1,7 +1,7 @@
 package com.knowledge.myfinapp.system.di
 
-import com.knowledge.myfinapp.data.merchant.repository.MerchantRepository
-import com.knowledge.myfinapp.data.merchant.repository.MerchantRepositoryImpl
+import com.knowledge.myfinapp.data.repository.MerchantRepository
+import com.knowledge.myfinapp.data.repository.MerchantRepositoryImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

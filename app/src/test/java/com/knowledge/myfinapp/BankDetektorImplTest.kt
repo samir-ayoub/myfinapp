@@ -1,7 +1,7 @@
 package com.knowledge.myfinapp
 
-import com.knowledge.myfinapp.data.notification.impl.BankDetectorImpl
-import com.knowledge.myfinapp.data.notification.model.Bank
+import com.knowledge.myfinapp.data.notification.delegate.BankDetectorImpl
+import com.knowledge.myfinapp.data.model.Bank
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNull
 import org.junit.jupiter.api.BeforeEach

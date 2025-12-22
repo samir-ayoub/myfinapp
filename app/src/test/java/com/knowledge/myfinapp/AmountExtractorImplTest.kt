@@ -1,6 +1,6 @@
 package com.knowledge.myfinapp
 
-import com.knowledge.myfinapp.data.notification.impl.AmountExtractorImpl
+import com.knowledge.myfinapp.data.notification.delegate.AmountExtractorImpl
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test

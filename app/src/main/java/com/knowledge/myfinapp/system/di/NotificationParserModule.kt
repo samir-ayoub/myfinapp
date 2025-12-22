@@ -1,15 +1,15 @@
 package com.knowledge.myfinapp.system.di
 
-import com.knowledge.myfinapp.data.notification.impl.BankDetectorImpl
-import com.knowledge.myfinapp.data.notification.impl.NotificationParserImpl
-import com.knowledge.myfinapp.data.notification.impl.AmountExtractorImpl
-import com.knowledge.myfinapp.data.notification.impl.ExpenseBuilderImpl
-import com.knowledge.myfinapp.data.notification.impl.MerchantNormalizerImpl
-import com.knowledge.myfinapp.data.notification.parser.AmountExtractor
-import com.knowledge.myfinapp.data.notification.parser.BankDetector
-import com.knowledge.myfinapp.data.notification.parser.ExpenseBuilder
-import com.knowledge.myfinapp.data.notification.parser.MerchantNormalizer
-import com.knowledge.myfinapp.data.notification.parser.NotificationParser
+import com.knowledge.myfinapp.data.notification.delegate.BankDetectorImpl
+import com.knowledge.myfinapp.data.notification.delegate.NotificationParserImpl
+import com.knowledge.myfinapp.data.notification.delegate.AmountExtractorImpl
+import com.knowledge.myfinapp.data.notification.delegate.ExpenseBuilderImpl
+import com.knowledge.myfinapp.data.notification.delegate.MerchantNormalizerImpl
+import com.knowledge.myfinapp.data.notification.delegate.AmountExtractor
+import com.knowledge.myfinapp.data.notification.delegate.BankDetector
+import com.knowledge.myfinapp.data.notification.delegate.ExpenseBuilder
+import com.knowledge.myfinapp.data.notification.delegate.MerchantNormalizer
+import com.knowledge.myfinapp.data.notification.delegate.NotificationParser
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

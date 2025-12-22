@@ -1,9 +1,9 @@
 package com.knowledge.myfinapp.system.di
 
-import com.knowledge.myfinapp.data.expenses.repository.ExpenseRepositoryImpl
-import com.knowledge.myfinapp.data.expenses.repository.RoomExpenseRepositoryImpl
-import com.knowledge.myfinapp.data.expenses.repository.ExpenseRepository
-import com.knowledge.myfinapp.data.expenses.repository.RoomExpenseRepository
+import com.knowledge.myfinapp.data.repository.ExpenseRepositoryImpl
+import com.knowledge.myfinapp.data.repository.RoomExpenseRepositoryImpl
+import com.knowledge.myfinapp.data.repository.ExpenseRepository
+import com.knowledge.myfinapp.data.repository.RoomExpenseRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

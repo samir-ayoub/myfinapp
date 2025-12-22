@@ -1,7 +1,7 @@
 package com.knowledge.myfinapp.mocks.fakedata
 
-import com.knowledge.myfinapp.data.notification.model.Bank
-import com.knowledge.myfinapp.data.notification.model.ParsedExpenseData
+import com.knowledge.myfinapp.data.model.Bank
+import com.knowledge.myfinapp.data.model.ParsedExpenseData
 import com.knowledge.myfinapp.domain.model.Expense
 import com.knowledge.myfinapp.domain.model.ExpenseSource
 import com.knowledge.myfinapp.domain.model.Merchant

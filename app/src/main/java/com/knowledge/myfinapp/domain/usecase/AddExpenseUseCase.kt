@@ -1,11 +1,11 @@
 package com.knowledge.myfinapp.domain.usecase
 
-import com.knowledge.myfinapp.data.category.resolver.CategoryResolver
+import com.knowledge.myfinapp.data.CategoryResolver
 import com.knowledge.myfinapp.data.sync.scheduler.SyncTrigger
-import com.knowledge.myfinapp.data.expenses.repository.RoomExpenseRepository
-import com.knowledge.myfinapp.data.merchant.resolver.MerchantResolver
-import com.knowledge.myfinapp.data.notification.model.ParsedExpenseData
-import com.knowledge.myfinapp.data.notification.parser.ExpenseBuilder
+import com.knowledge.myfinapp.data.repository.RoomExpenseRepository
+import com.knowledge.myfinapp.data.MerchantResolver
+import com.knowledge.myfinapp.data.model.ParsedExpenseData
+import com.knowledge.myfinapp.data.notification.delegate.ExpenseBuilder
 import timber.log.Timber
 import javax.inject.Inject
 

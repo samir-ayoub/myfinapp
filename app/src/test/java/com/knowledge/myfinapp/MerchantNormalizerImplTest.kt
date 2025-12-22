@@ -1,6 +1,6 @@
 package com.knowledge.myfinapp
 
-import com.knowledge.myfinapp.data.notification.impl.MerchantNormalizerImpl
+import com.knowledge.myfinapp.data.notification.delegate.MerchantNormalizerImpl
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNull
 import org.junit.jupiter.api.BeforeEach
