@@ -1,7 +1,7 @@
 package com.knowledge.myfinapp.data.notification.delegate
 
 import com.knowledge.myfinapp.data.model.Bank
-import com.knowledge.myfinapp.data.model.ParsedExpenseData
+import com.knowledge.myfinapp.data.model.ParsedNotification
 import com.knowledge.myfinapp.domain.model.Category
 import com.knowledge.myfinapp.domain.model.Expense
 import com.knowledge.myfinapp.domain.model.ExpenseSource
@@ -19,7 +19,7 @@ data class ExpenseHashData(
 )
 class ExpenseBuilderImpl: ExpenseBuilder {
     override fun build(
-        data: ParsedExpenseData,
+        data: ParsedNotification,
         category: Category?,
         merchant: Merchant?
     ): Expense {

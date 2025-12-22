@@ -4,7 +4,7 @@ import com.knowledge.myfinapp.data.CategoryResolver
 import com.knowledge.myfinapp.data.sync.scheduler.SyncTrigger
 import com.knowledge.myfinapp.data.repository.RoomExpenseRepository
 import com.knowledge.myfinapp.data.MerchantResolver
-import com.knowledge.myfinapp.data.model.ParsedExpenseData
+import com.knowledge.myfinapp.data.model.ParsedNotification
 import com.knowledge.myfinapp.data.notification.delegate.ExpenseBuilder
 import timber.log.Timber
 import javax.inject.Inject
@@ -16,7 +16,7 @@ class AddExpenseUseCase @Inject constructor(
     private val expenseLocalRepository: RoomExpenseRepository,
     private val syncTrigger: SyncTrigger
 ) {
-    suspend operator fun invoke(parsedData: ParsedExpenseData) {
+    suspend operator fun invoke(parsedData: ParsedNotification) {
         Timber.i("Registering new expense: $parsedData")
 
         val category = categoryResolver.resolve(parsedData.merchantRaw)

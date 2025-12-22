@@ -1,9 +1,10 @@
 package com.knowledge.myfinapp.data.notification.delegate
 
-import com.knowledge.myfinapp.data.model.ParsedExpenseData
+import com.knowledge.myfinapp.data.model.ParsedNotification
+import com.knowledge.myfinapp.data.model.ParsingEvidence
 import com.knowledge.myfinapp.data.model.RawNotification
+import com.knowledge.myfinapp.data.model.SourceType
 import com.knowledge.myfinapp.data.notification.parser.IgnoredStatus
-import com.knowledge.myfinapp.data.notification.delegate.NotificationParser
 import com.knowledge.myfinapp.data.notification.parser.ParseError
 import com.knowledge.myfinapp.data.notification.parser.ParseResult
 import timber.log.Timber
@@ -11,19 +12,19 @@ import timber.log.Timber
 class NotificationParserImpl(
     private val bankDetector: BankDetector,
     private val amountExtractor: AmountExtractor,
-    private val merchantNormalizer: MerchantNormalizer
+    private val merchantNormalizer: MerchantNormalizer,
     ): NotificationParser {
 
     override fun parse(notification: RawNotification): ParseResult {
         Timber.i("parse called")
 
         try {
-            val bank = bankDetector.detect(
+            val bankDetection = bankDetector.detect(
                 notification.packageName,
                 notification.text
             ) ?: return ParseResult.Ignored(IgnoredStatus.BANK_NOT_DETECTED)
 
-            Timber.i("parsed bank: $bank")
+            Timber.i("parsed bank: ${bankDetection.bank}")
 
             val amount = amountExtractor.extract(notification.text)
                 ?: return ParseResult.Failure(
@@ -36,12 +37,17 @@ class NotificationParserImpl(
 
             Timber.i("parsed merchant: $merchant")
 
-            val data = ParsedExpenseData(
-                bank = bank,
+            val data = ParsedNotification(
+                bank = bankDetection.bank,
                 amount = amount,
                 merchantRaw = merchant,
                 occurredAt = notification.postedAt,
-                isDebit = true
+                isDebit = true,
+                evidences = ParsingEvidence(
+                    bankDetectedByPackageName = bankDetection.source == SourceType.PACKAGE_NAME,
+                    true,
+                    merchantDetected = !merchant.isNullOrBlank()
+                )
             )
 
             return ParseResult.Success(data)

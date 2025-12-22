@@ -1,6 +1,8 @@
 package com.knowledge.myfinapp.data.notification.delegate
 
 import com.knowledge.myfinapp.data.model.Bank
+import com.knowledge.myfinapp.data.model.BankDetection
+import com.knowledge.myfinapp.data.model.SourceType
 import timber.log.Timber
 
 // to analyse the list of packages in the environment
@@ -19,14 +21,17 @@ class BankDetectorImpl: BankDetector {
         "com.knowledge.notificationsender" to Bank.I_AM_GOD
         )
 
-    override fun detect(packageName: String, text: String): Bank? {
-        packageMap[packageName]?.let { return it }
+    override fun detect(packageName: String, text: String): BankDetection? {
+        packageMap[packageName]?.let { return BankDetection(it, SourceType.PACKAGE_NAME) }
 
         val normalizedText = text.lowercase()
         Timber.i("mapping to banks from text $normalizedText")
 
         for ((bank, keywords) in KEYWORDS) {
-            if (keywords.any { normalizedText.contains(it) }) return bank
+            if (keywords.any { normalizedText.contains(it) }) return BankDetection(
+                bank,
+                SourceType.TEXT
+            )
         }
 
         return null

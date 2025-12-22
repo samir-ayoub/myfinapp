@@ -1,7 +1,7 @@
 package com.knowledge.myfinapp.mocks.fakedata
 
 import com.knowledge.myfinapp.data.model.Bank
-import com.knowledge.myfinapp.data.model.ParsedExpenseData
+import com.knowledge.myfinapp.data.model.ParsedNotification
 import com.knowledge.myfinapp.domain.model.Expense
 import com.knowledge.myfinapp.domain.model.ExpenseSource
 import com.knowledge.myfinapp.domain.model.Merchant
@@ -21,7 +21,7 @@ object FakeExpenses {
         updatedAt = Instant.parse("2025-12-17T12:01:00Z")
     )
 
-    val parsedExpenseData1 = ParsedExpenseData(
+    val parsedExpenseData1 = ParsedNotification(
         bank = Bank.CGD,
         amount = BigDecimal("12.34"),
         merchantRaw = "GLOVO BURGER KING",

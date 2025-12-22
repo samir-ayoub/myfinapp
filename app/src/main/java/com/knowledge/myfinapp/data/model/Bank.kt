@@ -12,3 +12,13 @@ enum class Bank {
     ACTIVO_BANK,
     I_AM_GOD
 }
+
+enum class SourceType {
+    PACKAGE_NAME, TEXT
+}
+
+data class BankDetection(
+    val bank: Bank,
+    val source: SourceType
+)
+
