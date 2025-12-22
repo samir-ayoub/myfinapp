@@ -2,6 +2,7 @@ package com.knowledge.myfinapp.mocks.fakedata
 
 import com.knowledge.myfinapp.data.model.Bank
 import com.knowledge.myfinapp.data.model.ParsedNotification
+import com.knowledge.myfinapp.data.model.ParsingEvidence
 import com.knowledge.myfinapp.data.model.SourceType
 import com.knowledge.myfinapp.domain.model.Transaction
 import com.knowledge.myfinapp.domain.model.Merchant
@@ -28,8 +29,17 @@ object FakeTransactions {
         amount = BigDecimal("12.34"),
         merchantRaw = "GLOVO BURGER KING",
         occurredAt = Instant.parse("2025-12-17T10:00:00Z"),
+        evidences = FakeParsingEvidences.evidences1,
         type = TransactionType.EXPENSE
     )
 
     val expenses = listOf<Transaction>(transaction1)
+}
+
+object FakeParsingEvidences {
+    val evidences1 = ParsingEvidence(
+        bankDetectedByPackageName = true,
+        amountDetected = true,
+        merchantDetected = true
+    )
 }

@@ -1,7 +1,7 @@
 package com.knowledge.myfinapp
 
 import com.knowledge.myfinapp.data.notification.delegate.TransactionBuilderImpl
-import com.knowledge.myfinapp.domain.model.ExpenseSource
+import com.knowledge.myfinapp.domain.model.TransactionSource
 import com.knowledge.myfinapp.mocks.fakedata.FakeCategories
 import com.knowledge.myfinapp.mocks.fakedata.FakeTransactions
 import com.knowledge.myfinapp.mocks.fakedata.FakeMerchants
@@ -32,7 +32,7 @@ class ExpenseBuilderImplTest {
         assertEquals(data.amount, expense.amount)
         assertEquals(data.merchantRaw, expense.description)
         assertEquals(FakeCategories.category1, expense.category)
-        assertEquals(ExpenseSource.NOTIFICATION, expense.source)
+        assertEquals(TransactionSource.NOTIFICATION, expense.source)
         assertEquals(data.occurredAt, expense.occurredAt)
         assertNotNull(expense.hash)
         assertNotNull(expense.id)
