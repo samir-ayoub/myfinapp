@@ -5,6 +5,7 @@ object CategoryRules {
         "IFOOD" to "Food",
         "UBER" to "Transport",
         "AMAZON" to "Shopping",
-        "PIZZARIA" to "Food"
+        "PIZZARIA" to "Food",
+        "BURGER KING" to "Food"
     )
 }

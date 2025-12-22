@@ -12,7 +12,6 @@ import org.junit.jupiter.params.provider.MethodSource
 
 class BankDetektorImplTest {
 
-
     private lateinit var cut: BankDetectorImpl
 
     @BeforeEach
