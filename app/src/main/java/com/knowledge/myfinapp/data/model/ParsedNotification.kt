@@ -1,5 +1,6 @@
 package com.knowledge.myfinapp.data.model
 
+import com.knowledge.myfinapp.domain.model.TransactionType
 import java.math.BigDecimal
 import java.time.Instant
 
@@ -8,7 +9,7 @@ data class ParsedNotification(
     val amount: BigDecimal,
     val merchantRaw: String?,
     val occurredAt: Instant,
-    val isDebit: Boolean,
+    val type: TransactionType,
     val evidences: ParsingEvidence
 )
 

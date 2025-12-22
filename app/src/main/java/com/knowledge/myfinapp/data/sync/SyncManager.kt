@@ -2,9 +2,9 @@ package com.knowledge.myfinapp.data.sync
 
 import android.content.Context
 import com.knowledge.myfinapp.core.util.isNetworkAvailable
-import com.knowledge.myfinapp.domain.model.Expense
-import com.knowledge.myfinapp.data.repository.ExpenseRepository
-import com.knowledge.myfinapp.data.repository.RoomExpenseRepository
+import com.knowledge.myfinapp.domain.model.Transaction
+import com.knowledge.myfinapp.data.repository.TransactionRepository
+import com.knowledge.myfinapp.data.repository.RoomTransactionRepository
 import dagger.hilt.android.qualifiers.ApplicationContext
 import timber.log.Timber
 import java.time.Instant
@@ -13,23 +13,23 @@ import javax.inject.Inject
 
 class SyncManager @Inject constructor(
     @param:ApplicationContext private val context: Context,
-    private val expenseLocalRepository: RoomExpenseRepository,  // para operações de Room
-    private val repository: ExpenseRepository,          // para lógica de domínio se precisar
+    private val roomTransactionRepository: RoomTransactionRepository,
+    private val repository: TransactionRepository,
     private val syncStore: SyncStore
 ) {
-    suspend fun syncExpenses(): Unit {
-        Timber.i("sync expenses called")
+    suspend fun syncTransactions(): Unit {
+        Timber.i("sync transactions called")
 
         if (!context.isNetworkAvailable()) return
 
-        val unsyncedExpenses = expenseLocalRepository.getUnsynced()
+        val unsyncedTransactions = roomTransactionRepository.getUnsynced()
 
-        Timber.i("has unsynced expenses: ${unsyncedExpenses.isNotEmpty()}")
+        Timber.i("has unsynced transactions: ${unsyncedTransactions.isNotEmpty()}")
 
-        if (pushUpdates(unsyncedExpenses)) {
-            expenseLocalRepository.markAsSynced(
-                unsyncedExpenses.map {
-                    Timber.i("Marking ${it.merchant} expense as synced")
+        if (pushUpdates(unsyncedTransactions)) {
+            roomTransactionRepository.markAsSynced(
+                unsyncedTransactions.map {
+                    Timber.i("Marking ${it.merchant} transaction as synced")
                     it.id
                 }
             )
@@ -38,29 +38,29 @@ class SyncManager @Inject constructor(
         val lastSync: Instant? = syncStore.lastSyncTime()
         val remoteUpdates = fetchRemoteUpdates(lastSync)
 
-        Timber.i("merging remote expenses with local data")
+        Timber.i("merging remote transaction with local data")
         merge(remoteUpdates)
 
         syncStore.updateLastSync(now())
     }
 
-    private suspend fun fetchRemoteUpdates(lastSync: Instant?): List<Expense> {
-        return repository.fetchRemoteExpenses(updatedAfter = lastSync)
+    private suspend fun fetchRemoteUpdates(lastSync: Instant?): List<Transaction> {
+        return repository.fetchRemoteTransactions(updatedAfter = lastSync)
     }
-    private suspend fun pushUpdates(expenses: List<Expense>): Boolean {
-        if (expenses.isEmpty()) return false
+    private suspend fun pushUpdates(transactions: List<Transaction>): Boolean {
+        if (transactions.isEmpty()) return false
 
-        return repository.pushExpenses(expenses)
+        return repository.pushTransactions(transactions)
     }
 
-    private suspend fun merge(remote: List<Expense>) {
-        val toUpsert = remote.filter { remoteExpense ->
-            val local = repository.getById(remoteExpense.id)
-            local == null || remoteExpense.updatedAt > local.updatedAt
+    private suspend fun merge(remote: List<Transaction>) {
+        val toUpsert = remote.filter { remoteTransaction ->
+            val local = repository.getById(remoteTransaction.id)
+            local == null || remoteTransaction.updatedAt > local.updatedAt
         }
 
         if (toUpsert.isNotEmpty()) {
-            expenseLocalRepository.upsert(toUpsert)
+            roomTransactionRepository.upsert(toUpsert)
         }
     }
 }

@@ -1,4 +1,4 @@
-package com.knowledge.myfinapp.ui.expenselist
+package com.knowledge.myfinapp.ui.transactionlist
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.Label
@@ -8,15 +8,14 @@ import androidx.compose.material.icons.filled.Fastfood
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.ui.graphics.vector.ImageVector
-import com.knowledge.myfinapp.domain.model.Expense
-import timber.log.Timber
+import com.knowledge.myfinapp.domain.model.Transaction
 import java.time.ZoneId
 
-fun Expense.toUiExpense(): UiExpense {
+fun Transaction.toUiTransaction(): UiTransaction {
     val categoryName = category?.name ?: "Unknown"
     val zone = ZoneId.systemDefault()
 
-    return UiExpense(
+    return UiTransaction(
         id = id,
         amount = amount,
         description = description,

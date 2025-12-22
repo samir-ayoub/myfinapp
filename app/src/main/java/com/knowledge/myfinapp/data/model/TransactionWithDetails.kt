@@ -3,8 +3,8 @@ package com.knowledge.myfinapp.data.model
 import androidx.room.Embedded
 import androidx.room.Relation
 
-data class ExpenseWithDetails(
-    @Embedded val expense: ExpenseEntity,
+data class TransactionWithDetails(
+    @Embedded val transaction: TransactionEntity,
 
     @Relation(
         parentColumn = "merchantId",

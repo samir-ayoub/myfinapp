@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">My Fin App</string>
+    <string name="hi_user">Hi, Samir</string>
+    <string name="current_balance">Current Balance</string>
+    <string name="recent_transactions">Recent Transactions</string>
+    <string name="monthly_budget">Monthly Budget</string>
 </resources>

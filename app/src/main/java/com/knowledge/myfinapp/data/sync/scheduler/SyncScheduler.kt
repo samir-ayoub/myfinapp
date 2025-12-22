@@ -28,7 +28,7 @@ class SyncScheduler @Inject constructor(
 
         WorkManager.getInstance(context)
             .enqueueUniquePeriodicWork(
-                "expense_sync",
+                "transaction_sync",
                 ExistingPeriodicWorkPolicy.KEEP,
                 request
             )

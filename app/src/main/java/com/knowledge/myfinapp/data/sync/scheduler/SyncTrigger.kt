@@ -25,7 +25,7 @@ class SyncTrigger @Inject constructor(
 
         WorkManager.getInstance(context)
             .enqueueUniqueWork(
-                "expense_sync_now",
+                "transaction_sync_now",
                 ExistingWorkPolicy.REPLACE,
                 request
             )

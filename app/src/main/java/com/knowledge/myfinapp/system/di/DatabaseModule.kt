@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.room.Room
 import com.knowledge.myfinapp.data.database.AppDatabase
 import com.knowledge.myfinapp.data.database.dao.CategoryDao
-import com.knowledge.myfinapp.data.database.dao.ExpenseDao
+import com.knowledge.myfinapp.data.database.dao.TransactionDao
 import com.knowledge.myfinapp.data.database.dao.MerchantDao
 import dagger.Module
 import dagger.Provides
@@ -29,7 +29,7 @@ object DatabaseModule {
     }
 
     @Provides
-    fun provideExpenseDao(db: AppDatabase): ExpenseDao = db.expenseDao()
+    fun provideTransactionDao(db: AppDatabase): TransactionDao = db.transactionDao()
 
     @Provides
     fun provideMerchantDao(db: AppDatabase): MerchantDao = db.merchantDao()

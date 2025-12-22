@@ -3,11 +3,11 @@ package com.knowledge.myfinapp.system.di
 import com.knowledge.myfinapp.data.notification.delegate.BankDetectorImpl
 import com.knowledge.myfinapp.data.notification.delegate.NotificationParserImpl
 import com.knowledge.myfinapp.data.notification.delegate.AmountExtractorImpl
-import com.knowledge.myfinapp.data.notification.delegate.ExpenseBuilderImpl
+import com.knowledge.myfinapp.data.notification.delegate.TransactionBuilderImpl
 import com.knowledge.myfinapp.data.notification.delegate.MerchantNormalizerImpl
 import com.knowledge.myfinapp.data.notification.delegate.AmountExtractor
 import com.knowledge.myfinapp.data.notification.delegate.BankDetector
-import com.knowledge.myfinapp.data.notification.delegate.ExpenseBuilder
+import com.knowledge.myfinapp.data.notification.delegate.TransactionBuilder
 import com.knowledge.myfinapp.data.notification.delegate.MerchantNormalizer
 import com.knowledge.myfinapp.data.notification.delegate.NotificationParser
 import dagger.Module
@@ -42,5 +42,5 @@ object NotificationParserModule {
 
     @Provides
     @Singleton
-     fun provideExpenseBuilder(): ExpenseBuilder = ExpenseBuilderImpl()
+     fun provideTransactionBuilder(): TransactionBuilder = TransactionBuilderImpl()
 }

@@ -1,25 +1,25 @@
 package com.knowledge.myfinapp.data.mappers
 
-import com.knowledge.myfinapp.data.model.ExpenseEntity
-import com.knowledge.myfinapp.domain.model.Expense
-import com.knowledge.myfinapp.domain.model.ExpenseSource
+import com.knowledge.myfinapp.data.model.TransactionEntity
+import com.knowledge.myfinapp.domain.model.Transaction
+import com.knowledge.myfinapp.domain.model.TransactionSource
 import java.time.Instant
 
-fun ExpenseEntity.toDomain(): Expense =
-    Expense(
+fun TransactionEntity.toDomain(): Transaction =
+    Transaction(
         id = id,
         amount = amount,
         description = description,
         merchant = null, // ou resolver depois
         category = null,
         occurredAt = Instant.ofEpochMilli(occurredAt),
-        source = ExpenseSource.valueOf(source),
+        source = TransactionSource.valueOf(source),
         hash = hash,
         updatedAt = Instant.ofEpochMilli(updatedAt)
     )
 
-fun Expense.toEntity(synced: Boolean): ExpenseEntity =
-    ExpenseEntity(
+fun Transaction.toEntity(synced: Boolean): TransactionEntity =
+    TransactionEntity(
         id = id,
         amount = amount,
         description = description,

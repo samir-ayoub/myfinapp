@@ -1,9 +1,9 @@
 package com.knowledge.myfinapp.system.di
 
-import com.knowledge.myfinapp.data.repository.ExpenseRepositoryImpl
-import com.knowledge.myfinapp.data.repository.RoomExpenseRepositoryImpl
-import com.knowledge.myfinapp.data.repository.ExpenseRepository
-import com.knowledge.myfinapp.data.repository.RoomExpenseRepository
+import com.knowledge.myfinapp.data.repository.TransactionRepositoryImpl
+import com.knowledge.myfinapp.data.repository.RoomTransactionRepositoryImpl
+import com.knowledge.myfinapp.data.repository.TransactionRepository
+import com.knowledge.myfinapp.data.repository.RoomTransactionRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -16,13 +16,13 @@ abstract class RepositoryModule {
 
     @Binds
     @Singleton
-    abstract fun bindExpenseRepository(
-        impl: ExpenseRepositoryImpl
-    ): ExpenseRepository
+    abstract fun bindTransactionRepository(
+        impl: TransactionRepositoryImpl
+    ): TransactionRepository
 
     @Binds
     @Singleton
-    abstract fun bindExpenseSyncRepository(
-        impl: RoomExpenseRepositoryImpl
-    ): RoomExpenseRepository
+    abstract fun bindRoomTransactionRepository(
+        impl: RoomTransactionRepositoryImpl
+    ): RoomTransactionRepository
 }

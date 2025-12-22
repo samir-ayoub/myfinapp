@@ -1,13 +1,13 @@
 package com.knowledge.myfinapp.data.remote.dto
 
-import com.knowledge.myfinapp.domain.model.Expense
+import com.knowledge.myfinapp.domain.model.Transaction
 import com.knowledge.myfinapp.domain.model.Category
-import com.knowledge.myfinapp.domain.model.ExpenseSource
+import com.knowledge.myfinapp.domain.model.TransactionSource
 import com.knowledge.myfinapp.domain.model.Merchant
 import java.time.Instant
 
-fun ExpenseDto.toDomain(): Expense =
-    Expense(
+fun TransactionDto.toDomain(): Transaction =
+    Transaction(
         id = id,
         amount = amount,
         description = description,
@@ -16,7 +16,7 @@ fun ExpenseDto.toDomain(): Expense =
         occurredAt = Instant.parse(occurredAt),
         hash = hash,
         updatedAt = Instant.parse(updatedAt),
-        source = ExpenseSource.REMOTE
+        source = TransactionSource.REMOTE
 )
 
 fun MerchantDto.toDomain(): Merchant =

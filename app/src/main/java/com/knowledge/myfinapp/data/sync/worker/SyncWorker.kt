@@ -19,7 +19,7 @@ class SyncWorker @AssistedInject constructor(
     override suspend fun doWork(): Result {
         Timber.i("Starting sync")
         return try {
-            syncManager.syncExpenses()
+            syncManager.syncTransactions()
             Timber.i("Sync succeeded")
             return Result.success()
         } catch (t: Throwable) {

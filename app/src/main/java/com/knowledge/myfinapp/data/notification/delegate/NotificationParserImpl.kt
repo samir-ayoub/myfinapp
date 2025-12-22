@@ -7,6 +7,7 @@ import com.knowledge.myfinapp.data.model.SourceType
 import com.knowledge.myfinapp.data.notification.parser.IgnoredStatus
 import com.knowledge.myfinapp.data.notification.parser.ParseError
 import com.knowledge.myfinapp.data.notification.parser.ParseResult
+import com.knowledge.myfinapp.domain.model.TransactionType
 import timber.log.Timber
 
 class NotificationParserImpl(
@@ -42,7 +43,7 @@ class NotificationParserImpl(
                 amount = amount,
                 merchantRaw = merchant,
                 occurredAt = notification.postedAt,
-                isDebit = true,
+                type = TransactionType.EXPENSE,
                 evidences = ParsingEvidence(
                     bankDetectedByPackageName = bankDetection.source == SourceType.PACKAGE_NAME,
                     true,

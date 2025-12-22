@@ -1,12 +1,12 @@
 package com.knowledge.myfinapp.mocks.fakedata
 
-import com.knowledge.myfinapp.data.remote.dto.ExpenseDto
+import com.knowledge.myfinapp.data.remote.dto.TransactionDto
 import com.knowledge.myfinapp.data.remote.dto.MerchantDto
 import com.knowledge.myfinapp.data.remote.dto.CategoryDto
 import java.math.BigDecimal
 
-object FakeExpenseDtos {
-    val expense1Dto = ExpenseDto(
+object FakeTransactionDtos {
+    val transaction1Dto = TransactionDto(
         id = "123",
         amount = BigDecimal("42.50"),
         description = "Almoço",
@@ -17,9 +17,9 @@ object FakeExpenseDtos {
         updatedAt = "2025-12-17T12:01:00Z"
     )
 
-    val expenses =
+    val transactions =
         listOf(
-            expense1Dto
+            transaction1Dto
         )
 }
 

@@ -1,9 +1,9 @@
 package com.knowledge.myfinapp
 
-import com.knowledge.myfinapp.data.notification.delegate.ExpenseBuilderImpl
+import com.knowledge.myfinapp.data.notification.delegate.TransactionBuilderImpl
 import com.knowledge.myfinapp.domain.model.ExpenseSource
 import com.knowledge.myfinapp.mocks.fakedata.FakeCategories
-import com.knowledge.myfinapp.mocks.fakedata.FakeExpenses
+import com.knowledge.myfinapp.mocks.fakedata.FakeTransactions
 import com.knowledge.myfinapp.mocks.fakedata.FakeMerchants
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.BeforeEach
@@ -12,16 +12,16 @@ import java.time.Instant
 
 class ExpenseBuilderImplTest {
 
-    private lateinit var cut: ExpenseBuilderImpl
+    private lateinit var cut: TransactionBuilderImpl
 
     @BeforeEach
     fun setup() {
-        cut = ExpenseBuilderImpl()
+        cut = TransactionBuilderImpl()
     }
 
     @Test
     fun `build expense with proper data`() {
-        val data = FakeExpenses.parsedExpenseData1
+        val data = FakeTransactions.parsedNotification1
 
         val expense = cut.build(
             data = data,
@@ -40,7 +40,7 @@ class ExpenseBuilderImplTest {
 
     @Test
     fun `merchant description fallback when merchantRaw is null`() {
-        val data = FakeExpenses.parsedExpenseData1.copy(merchantRaw = null)
+        val data = FakeTransactions.parsedNotification1.copy(merchantRaw = null)
 
         val expense = cut.build(
             data = data,
@@ -53,7 +53,7 @@ class ExpenseBuilderImplTest {
 
     @Test
     fun `same data within five minute window generates same hash`() {
-        val base = FakeExpenses.parsedExpenseData1.copy(
+        val base = FakeTransactions.parsedNotification1.copy(
             occurredAt = Instant.parse("2025-12-17T10:00:00Z")
         )
 
@@ -71,7 +71,7 @@ class ExpenseBuilderImplTest {
 
     @Test
     fun `same data after five minute window generates different hash`() {
-        val base = FakeExpenses.parsedExpenseData1.copy(
+        val base = FakeTransactions.parsedNotification1.copy(
             occurredAt = Instant.parse("2025-12-17T10:00:00Z")
         )
 

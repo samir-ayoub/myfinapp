@@ -1,9 +1,9 @@
 package com.knowledge.myfinapp
 
-import com.knowledge.myfinapp.data.remote.api.ExpenseApi
-import com.knowledge.myfinapp.data.repository.ExpenseRepositoryImpl
-import com.knowledge.myfinapp.mocks.fakedata.FakeExpenseDtos
-import com.knowledge.myfinapp.mocks.fakedata.FakeExpenses
+import com.knowledge.myfinapp.data.remote.api.TransactionApi
+import com.knowledge.myfinapp.data.repository.TransactionRepositoryImpl
+import com.knowledge.myfinapp.mocks.fakedata.FakeTransactionDtos
+import com.knowledge.myfinapp.mocks.fakedata.FakeTransactions
 import com.knowledge.myfinapp.mocks.fakedata.FakeInstant
 import io.mockk.coEvery
 import io.mockk.coVerify
@@ -18,30 +18,30 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
 
 class ExpenseRepositoryImplTest {
-    private lateinit var cut: ExpenseRepositoryImpl
+    private lateinit var cut: TransactionRepositoryImpl
 
-    private val mockExpenseApi = mockk<ExpenseApi>()
+    private val mockExpenseApi = mockk<TransactionApi>()
 
     @BeforeEach
     fun setup() {
-        cut = ExpenseRepositoryImpl(mockExpenseApi)
+        cut = TransactionRepositoryImpl(mockExpenseApi)
     }
 
     @Test
     fun `observeExpenses emits empty list initially`() = runTest {
-        val result = cut.observeExpenses().first()
+        val result = cut.observeTransactions().first()
 
         assertTrue(result.isEmpty())
     }
 
     @Test
     fun `addExpense should call expenseApi with correct DTO`() = runTest {
-        coEvery { mockExpenseApi.sendExpenses(any()) } just runs
+        coEvery { mockExpenseApi.sendTransactions(any()) } just runs
 
-        cut.addExpense(FakeExpenses.expense1)
+        cut.addTransaction(FakeTransactions.transaction1)
 
         coVerify(exactly = 1) {
-            mockExpenseApi.sendExpenses(FakeExpenseDtos.expenses)
+            mockExpenseApi.sendTransactions(FakeTransactionDtos.transactions)
         }
     }
 
@@ -49,41 +49,41 @@ class ExpenseRepositoryImplTest {
     fun `fetchRemoteExpenses should call getExpenses and returns the result`() = runTest {
         val updatedAfter = FakeInstant.FIXED_TIME_1
 
-        coEvery { mockExpenseApi.getExpenses(any()) } returns FakeExpenseDtos.expenses
+        coEvery { mockExpenseApi.getTransactions(any()) } returns FakeTransactionDtos.transactions
 
-        val result = cut.fetchRemoteExpenses(updatedAfter)
+        val result = cut.fetchRemoteTransactions(updatedAfter)
 
         assertEquals(1, result.size)
-        assertEquals(FakeExpenseDtos.expense1Dto.id, result[0].id)
-        assertEquals(FakeExpenseDtos.expense1Dto.description, result[0].description)
+        assertEquals(FakeTransactionDtos.transaction1Dto.id, result[0].id)
+        assertEquals(FakeTransactionDtos.transaction1Dto.description, result[0].description)
 
 
         coVerify(exactly = 1) {
-            mockExpenseApi.getExpenses(updatedAfter.toEpochMilli())
+            mockExpenseApi.getTransactions(updatedAfter.toEpochMilli())
         }
     }
 
     @Test
     fun `getById should call getExpenseById with id and returns the result`() = runTest {
-        coEvery { mockExpenseApi.getExpenseById(any()) } returns FakeExpenseDtos.expense1Dto
+        coEvery { mockExpenseApi.getTransactionById(any()) } returns FakeTransactionDtos.transaction1Dto
 
-        val result = cut.getById(FakeExpenses.expense1.id)
+        val result = cut.getById(FakeTransactions.transaction1.id)
 
-        assertEquals(FakeExpenses.expense1, FakeExpenses.expense1)
+        assertEquals(FakeTransactions.transaction1, FakeTransactions.transaction1)
 
         coVerify {
-            mockExpenseApi.getExpenseById(FakeExpenseDtos.expense1Dto.id)
+            mockExpenseApi.getTransactionById(FakeTransactionDtos.transaction1Dto.id)
         }
     }
 
     @Test
     fun `pushExpenses should call expenseApi with correct DTO`() = runTest {
-        coEvery { mockExpenseApi.sendExpenses(any()) } just runs
+        coEvery { mockExpenseApi.sendTransactions(any()) } just runs
 
-        cut.pushExpenses(FakeExpenses.expenses)
+        cut.pushTransactions(FakeTransactions.expenses)
 
         coVerify(exactly = 1) {
-            mockExpenseApi.sendExpenses(FakeExpenseDtos.expenses)
+            mockExpenseApi.sendTransactions(FakeTransactionDtos.transactions)
         }
     }
 }

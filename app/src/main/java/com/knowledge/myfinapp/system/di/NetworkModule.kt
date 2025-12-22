@@ -1,7 +1,7 @@
 package com.knowledge.myfinapp.system.di
 
 import com.knowledge.myfinapp.data.remote.api.Adapters
-import com.knowledge.myfinapp.data.remote.api.ExpenseApi
+import com.knowledge.myfinapp.data.remote.api.TransactionApi
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
@@ -33,7 +33,7 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideExpenseApi(retrofit: Retrofit): ExpenseApi =
-        retrofit.create(ExpenseApi::class.java)
+    fun provideTransactionApi(retrofit: Retrofit): TransactionApi =
+        retrofit.create(TransactionApi::class.java)
 
 }

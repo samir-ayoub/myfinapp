@@ -2,7 +2,7 @@ package com.knowledge.myfinapp.data.notification.delegate
 
 import com.knowledge.myfinapp.data.model.RawNotification
 import com.knowledge.myfinapp.data.notification.parser.ParseResult
-import com.knowledge.myfinapp.domain.usecase.AddExpenseUseCase
+import com.knowledge.myfinapp.domain.usecase.AddTransactionUseCase
 import timber.log.Timber
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -10,7 +10,7 @@ import javax.inject.Singleton
 @Singleton
 class NotificationDispatcher @Inject constructor(
     private val notificationParser: NotificationParser,
-    private val addExpenseUseCase: AddExpenseUseCase,
+    private val addTransactionUseCase: AddTransactionUseCase,
     private val confidenceEvaluator: ConfidenceEvaluator
 
 ) {
@@ -25,7 +25,7 @@ class NotificationDispatcher @Inject constructor(
                     Timber.w("Low confidence: $confidence")
                 }
 
-                addExpenseUseCase(result.data)
+                addTransactionUseCase(result.data)
             }
         }
     }

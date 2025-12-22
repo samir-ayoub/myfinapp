@@ -1,10 +1,10 @@
 package com.knowledge.myfinapp.data.mappers
 
-import com.knowledge.myfinapp.data.remote.dto.ExpenseDto
-import com.knowledge.myfinapp.domain.model.Expense
+import com.knowledge.myfinapp.data.remote.dto.TransactionDto
+import com.knowledge.myfinapp.domain.model.Transaction
 
-fun Expense.toDto(): ExpenseDto =
-    ExpenseDto(
+fun Transaction.toDto(): TransactionDto =
+    TransactionDto(
         id = id,
         amount = amount,
         description = description,

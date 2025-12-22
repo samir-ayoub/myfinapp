@@ -2,7 +2,7 @@ package com.knowledge.myfinapp.data.remote.dto
 
 import java.math.BigDecimal
 
-data class ExpenseDto(
+data class TransactionDto(
     val id: String,
     val amount: BigDecimal,
     val description: String,
